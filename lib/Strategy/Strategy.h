@@ -1,5 +1,4 @@
 #include <Arduino.h>
-
 #include "UniBoardV4Def.h"
 #include "utils.h"
 
@@ -7,7 +6,7 @@
 
 #include "Movement.h"
 
-#include "strategies/strat-0.h"
+#include "strat-0.h"
 
 class Strategy
 {

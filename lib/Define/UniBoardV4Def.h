@@ -2,9 +2,11 @@
     Based on https://raw.githubusercontent.com/Unimakers/CDR-2024-FIRMWARE/main/CDR2024%20BASE/lib/Define/UniBoardDef.h
     Updated 13/04/2024
 */
+#pragma once
 
 #ifndef UNIBOARDV4DEF_H
 #define UNIBOARDV4DEF_H
+#endif
 
 namespace PIN
 {
@@ -65,5 +67,3 @@ namespace PIN
 static constexpr int TEAM_PIN = PIN::Inputs::btn1;
 static constexpr int INIT_PIN = PIN::Inputs::btn2;
 static constexpr int TIR_PIN = PIN::Inputs::TIR;
-
-#endif

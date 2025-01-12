@@ -1,5 +1,7 @@
 #include "Strategy.h"
 
+
+
 String Strategy::teamCoord(int _x, int _y)
 {
     int teamFactor = (team == 'y' ? 0 : 1), boardWidth = 2000;

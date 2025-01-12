@@ -5,9 +5,9 @@
 
 #include "UniBoardV4Def.h"
 
-#include "types/DoubleMap.h"
-#include "types/Point2D.h"
-#include "types/PolarVect.h"
+#include "DoubleMap.h"
+#include "Point2D.h"
+#include "PolarVect.h"
 
 const double ACCEL = 500;
 const double SPEED = 1000;
