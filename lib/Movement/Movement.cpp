@@ -1,7 +1,6 @@
 #include <cmath>
 
 #include "Movement.h"
-#include "types/DoubleMap.h"
 
 using namespace PIN::Steppers;
 

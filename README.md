@@ -19,7 +19,7 @@ The robot is composed of four NEMA 17 stepper motors set to 1/8 step. Each mecan
 
 ## Strategy
 
-For each game, the robot follows a strategy. Each strategy consists of a sequence of actions performed one after the other, listed in a vector called `actions`. The strategies are stored in the [`src/strategies`](./src/strategies) directory and should be imported into [`Strategy.h`](./lib/Strategy/Strategy.h).
+For each game, the robot follows a strategy. Each strategy consists of a sequence of actions performed one after the other, listed in a vector called `actions`. The strategies are stored in the [`include/strategies`](./include/strategies) directory and should be imported into [`Strategy.cpp`](./lib/Strategy/Strategy.cpp).
 
 The possible actions in a strategy are :
 - Go to a position from the (0,0) position (absolute)
@@ -31,7 +31,7 @@ The possible actions in a strategy are :
 - Grab a pot
 - Release a pot
 
-They are illustrated as an example in the file [`strat-0.h`](./src/strategies/strat-0.h).
+They are illustrated as an example in the file [`strat-0.h`](./include/strategies/strat-0.h).
 
 ## LiDAR
 
@@ -43,7 +43,8 @@ The robot is equipped with actuators to interact with objects on the field.
 
 # TODO
 
-- [ ] Fix `UniBoardV4Def.h: No such file or directory`
+- [x] Fix `UniBoardV4Def.h: No such file or directory`
+- [ ] Fix `undefined reference to 'DoubleMap<AccelStepper>::operator[](int)'`
 - [ ] Implement the game timer
 - [ ] Implement LiDAR in the Movement class
 - [ ] Functions `stop()` and `fullstop()`

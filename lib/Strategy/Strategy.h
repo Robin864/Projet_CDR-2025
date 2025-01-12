@@ -1,3 +1,5 @@
+#pragma once
+
 #include <Arduino.h>
 
 #include "UniBoardV4Def.h"
@@ -6,8 +8,6 @@
 #include "Action.h"
 
 #include "Movement.h"
-
-#include "strategies/strat-0.h"
 
 class Strategy
 {
