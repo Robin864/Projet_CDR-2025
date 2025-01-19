@@ -1,3 +1,6 @@
+#ifndef DOUBLEMAP_CPP
+#define DOUBLEMAP_CPP
+
 #include "DoubleMap.h"
 
 template <typename _type>
@@ -97,3 +100,5 @@ int DoubleMap<_type>::indexAtKey(string key)
     }
     return -1;
 }
+
+#endif

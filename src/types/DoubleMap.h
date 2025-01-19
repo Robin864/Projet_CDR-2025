@@ -29,3 +29,5 @@ private:
     vector<_type*> v;
     int size = 0;
 };
+
+#include "DoubleMap.cpp"

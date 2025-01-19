@@ -44,7 +44,7 @@ The robot is equipped with actuators to interact with objects on the field.
 # TODO
 
 - [x] Fix `UniBoardV4Def.h: No such file or directory`
-- [ ] Fix `undefined reference to 'DoubleMap<AccelStepper>::operator[](int)'`
+- [x] Fix `undefined reference to 'DoubleMap<AccelStepper>::operator[](int)'`
 - [ ] Implement the game timer
 - [ ] Implement LiDAR in the Movement class
 - [ ] Functions `stop()` and `fullstop()`
