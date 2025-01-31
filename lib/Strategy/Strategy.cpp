@@ -2,6 +2,10 @@
 
 #include "strat-0.h"
 
+void fullstop();
+
+Strategy::Strategy() {}
+
 String Strategy::teamCoord(int _x, int _y)
 {
     int teamFactor = (team == 'y' ? 0 : 1), boardWidth = 2000;
@@ -13,6 +17,7 @@ String Strategy::teamCoord(int _x, int _y)
 void Strategy::setup()
 {
     movement.setup();
+    timer = Timer(DEFAULT_GAME_DURATION, &fullstop, false);
 }
 
 void Strategy::selectTeam()
@@ -64,8 +69,13 @@ void Strategy::execAction(Action action)
 
 void Strategy::game()
 {
+    timer.start();
+    
     for (const auto& action : actions)
     {
         execAction(action);
     }
 }
+
+void fullstop()
+{}

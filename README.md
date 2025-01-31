@@ -45,9 +45,10 @@ The robot is equipped with actuators to interact with objects on the field.
 
 - [x] Fix `UniBoardV4Def.h: No such file or directory`
 - [x] Fix `undefined reference to 'DoubleMap<AccelStepper>::operator[](int)'`
-- [ ] Implement the game timer
+- [x] Implement the game timer
+- [ ] Simplify DoubleMap using enum type
 - [ ] Implement LiDAR in the Movement class
-- [ ] Functions `stop()` and `fullstop()`
+- [ ] Functions `stop()` and `fullstop()` (Movement and Strategy)
 - [ ] Define a default speed and acceleration
 - [ ] Update `currentPos` and `liveCurrentPos` with `maxSteps`
 - [ ] Functions `rotateTo()` and `rotateBy()`
