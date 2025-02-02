@@ -46,8 +46,10 @@ void Strategy::execAction(Action action)
         case rotateAbsolute:
             movement.rotateTo(action.param1);
             break;
-        case rotateRelative:
-            movement.rotateBy(action.param1);
+        case rotateLeft:
+            movement.rotateLeftBy(action.param1);
+        case rotateRight:
+            movement.rotateRightTo(action.param1);
             break;
         case grabPlank:
             Serial.println("Grabing plank...");

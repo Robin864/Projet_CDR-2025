@@ -5,7 +5,8 @@ enum ActionType
     gotoAbsolute, // 0
     gotoRelative,
     rotateAbsolute,
-    rotateRelative,
+    rotateLeft,
+    rotateRight,
     grabPlank,
     ungrabPlank,
     grabPot,

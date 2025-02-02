@@ -1,18 +1,26 @@
 #include "Lidar.h"
 
+Lidar::Lidar() {}
+
+Lidar& Lidar::getInstance()
+{
+    static Lidar instance;
+    return instance;
+}
+
 void Lidar::setup()
 {
     Serial1.begin(230400, SERIAL_8N1, LIDAR_TX);
-    lidar.init();
-    lidar.setOffsetPosition(0, 0, gapRobotLidar);
-    lidar.enableFiltering();
-    lidar.setDistanceRange(minRangeDetection, maxRangeDetection);
-    lidar.setIntensityThreshold(intensityThreshold);
+    LD06Lidar.init();
+    LD06Lidar.setOffsetPosition(0, 0, gapRobotLidar);
+    LD06Lidar.enableFiltering();
+    LD06Lidar.setDistanceRange(minRangeDetection, maxRangeDetection);
+    LD06Lidar.setIntensityThreshold(intensityThreshold);
 }
 
 void Lidar::setDistanceRange(int min, int max)
 {
-    lidar.setDistanceRange(min, max);
+    LD06Lidar.setDistanceRange(min, max);
 }
 
 void Lidar::setDetectionDirection(float angle)
@@ -23,16 +31,14 @@ void Lidar::setDetectionDirection(float angle)
     if (abs(minAngle) > 360 || abs(maxAngle) > 360)
         ERROR("wrong angle value");
 
-    lidar.setAngleRange(minAngle, maxAngle);
+    LD06Lidar.setAngleRange(minAngle, maxAngle);
 }
 
-bool Lidar::isDetected(float angle)
+bool Lidar::isDetected()
 {
-    setDetectionDirection(angle);
-
-    if (lidar.readScan())
+    if (LD06Lidar.readScan())
     {
-        uint16_t detected = lidar.getNbPointsInScan();
+        uint16_t detected = LD06Lidar.getNbPointsInScan();
 
         // DEBUG(detected);
 

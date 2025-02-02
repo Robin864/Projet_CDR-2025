@@ -6,7 +6,7 @@ PolarVect::PolarVect()
     distance = 0;
 }
 
-PolarVect::PolarVect(int _angle, int _distance)
+PolarVect::PolarVect(float _angle, float _distance)
 {
     angle = _angle;
     distance = _distance;

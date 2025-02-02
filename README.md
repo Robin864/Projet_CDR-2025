@@ -47,9 +47,10 @@ The robot is equipped with actuators to interact with objects on the field.
 - [x] Fix `undefined reference to 'DoubleMap<AccelStepper>::operator[](int)'`
 - [x] Implement the game timer
 - [ ] Simplify DoubleMap using enum type
-- [ ] Implement LiDAR in the Movement class
+- [x] Implement LiDAR in the Movement class
+- [ ] Lidar on unused core
 - [ ] Functions `stop()` and `fullstop()` (Movement and Strategy)
 - [ ] Define a default speed and acceleration
 - [ ] Update `currentPos` and `liveCurrentPos` with `maxSteps`
-- [ ] Functions `rotateTo()` and `rotateBy()`
+- [x] Functions `rotateTo()` and `rotateBy()`
 - [ ] Update the [strategy generator](https://robin864.github.io/StrategyToolbox/pages/strategy-2024/generateur-2024.html) to make it compatible with the robot's program

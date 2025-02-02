@@ -13,9 +13,9 @@ class PolarVect
 private:
 
 public:
-    int angle, distance;
+    float angle, distance;
     PolarVect();
-    PolarVect(int _angle, int _distance);
+    PolarVect(float _angle, float _distance);
     Point2D to2D();
     Steps toSteps();
 };
