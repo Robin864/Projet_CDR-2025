@@ -4,7 +4,6 @@
 
 #include "Point2D.h"
 #include "PolarVect.h"
-#include "DoubleMap.h"
 
 const byte stepperNb = 4;
 

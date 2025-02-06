@@ -1,13 +1,9 @@
 #include "Movement.h"
 
-using namespace PIN::Steppers;
-
 Movement::Movement()
 {
-    stepper.append("fr", AccelStepper(AccelStepper::DRIVER, STEP1, DIR1));
-    stepper.append("rr", AccelStepper(AccelStepper::DRIVER, STEP2, DIR2));
-    stepper.append("fl", AccelStepper(AccelStepper::DRIVER, STEP3, DIR3));
-    stepper.append("rl", AccelStepper(AccelStepper::DRIVER, STEP4, DIR4));
+    for (int i = 0; i < stepperNb; i++)
+        stepper[i] = AccelStepper(AccelStepper::DRIVER, PIN::Steppers::STEP[i], PIN::Steppers::DIR[i]);
 }
 
 void Movement::setup()
@@ -26,7 +22,10 @@ void Movement::moveTo(Point2D targetAbsolute)
 
 void Movement::moveBy(Point2D targetRelative)
 {
+    targetPosRelative = targetRelative;
+    targetPosAbsolute = currentPos = targetPosRelative;
     Steps base = targetRelative.toSteps(currentRotation);
+    
     float detectionDirection = targetRelative.toPolar().angle;
     lidar.setDetectionDirection(detectionDirection);
 
@@ -43,18 +42,18 @@ void Movement::moveBy(Point2D targetRelative)
             maxStepsIndex = i;
         }
 
-    float scalers[stepperNb],
-        speed[stepperNb],
-        accel[stepperNb];
+    float scalers[stepperNb];
 
     for (int i = 0; i < stepperNb; i++)
     {
         scalers[i] = absSteps[i] / maxSteps;
-        speed[i] = SPEED * scalers[i];
-        accel[i] = ACCEL * scalers[i];
+        
+        last[speed][i] = SPEED * scalers[i];
+        last[accel][i] = ACCEL * scalers[i];
+        last[steps][i] = base.steps[i];
     
-        stepper[i].setMaxSpeed(speed[i]);
-        stepper[i].setAcceleration(accel[i]);
+        stepper[i].setMaxSpeed(last[speed][i]);
+        stepper[i].setAcceleration(last[accel][i]);
         stepper[i].setCurrentPosition(0);
         stepper[i].move(base.steps[i]);
     }
@@ -70,7 +69,7 @@ void Movement::rotateTo(float angle)
     float command = currentRotation - angle;
     command = currentRotation - command;
 
-    rotateBy(command); // TODO: evaluate minimal distance
+    rotateBy(command); // TODO: evaluate minimal angle
 }
 
 void Movement::rotateBy(float angle)
@@ -82,16 +81,22 @@ void Movement::rotateBy(float angle)
     {
         stepper[i].setMaxSpeed(SPEED);
         stepper[i].setAcceleration(ACCEL*2);
+
         stepper[i].setCurrentPosition(0);
     }
 
-    stepper["fr"].move(-angle * uStep);
-    stepper["rr"].move(-angle * uStep);
-    stepper["fl"].move(angle * uStep);
-    stepper["rl"].move(angle * uStep);
+    stepper[FrontRight].move(-angle * uStep);
+    stepper[RearRight].move(-angle * uStep);
+    stepper[FrontLeft].move(angle * uStep);
+    stepper[RearLeft].move(angle * uStep);
 
-    for (int i = 0; i < stepperNb; i++)
-        stepper[i].run();
+    do
+    {
+        for (int i = 0; i < stepperNb; i++)
+            stepper[i].run(); // When rotate, position must not be updated
+    } while (!isArrived());
+
+    currentRotation += angle;
 }
 
 void Movement::rotateLeftBy(float angle)
@@ -99,7 +104,7 @@ void Movement::rotateLeftBy(float angle)
     rotateBy(-angle);
 }
 
-void Movement::rotateRightTo(float angle)
+void Movement::rotateRightBy(float angle)
 {
     rotateBy(angle);
 }
@@ -117,10 +122,44 @@ void Movement::run()
         }
         else
         {
-            // stop(); // TODO : stop implementation
+            for (int i = 0; i < stepperNb; i++)
+                stepper[i].stop();
         }
-        liveCurrentPos; // TODO : Progress implementation
     } while (!isArrived());
+    
+    // TODO : Estimate drifting using liveCurrentPos and currentPos
+    // Correct it if possible
+    liveCurrentPos = currentPos;
+}
+
+void Movement::stop()
+{
+    for (int i = 0; i < stepperNb; i++)
+        stepper[i].stop();
+
+    delay(1000);
+
+    for (int i = 0; i < stepperNb; i++)
+        stepper[i].move(last[steps][i]);
+}
+
+void Movement::fullstop()
+{
+    digitalWrite(PIN::Steppers::EN, HIGH);
+    for (;;);
+}
+
+void Movement::updateProgress()
+{
+    progress = stepper[maxStepsIndex].currentPosition() / maxSteps; // Percentage
+    
+    liveCurrentPos = {
+        targetPosRelative.x * progress,
+        targetPosRelative.y * progress
+    };
+
+    for (int i = 0; i < stepperNb; i++)
+        last[steps][i] -= stepper[i].currentPosition();
 }
 
 bool Movement::isArrived()
@@ -130,4 +169,9 @@ bool Movement::isArrived()
             return false;
 
     return true;
+}
+
+Point2D Movement::getCurrentPos()
+{
+    return liveCurrentPos;
 }

@@ -15,6 +15,7 @@ The robot is composed of four NEMA 17 stepper motors set to 1/8 step. Each mecan
 <div style="text-align: center;">
     <img src="./assets/img/configuration.png" width="49%"/>
     <img src="./assets/img/steppers_location.png" width="49%"/>
+    <img src="./assets/img/pcb_identification.png" width="98.5%"/>
 </div>
 
 ## Strategy
@@ -46,11 +47,14 @@ The robot is equipped with actuators to interact with objects on the field.
 - [x] Fix `UniBoardV4Def.h: No such file or directory`
 - [x] Fix `undefined reference to 'DoubleMap<AccelStepper>::operator[](int)'`
 - [x] Implement the game timer
-- [ ] Simplify DoubleMap using enum type
+- [x] Simplify DoubleMap using enum type
 - [x] Implement LiDAR in the Movement class
-- [ ] Lidar on unused core
-- [ ] Functions `stop()` and `fullstop()` (Movement and Strategy)
+- [ ] Run LiDAR on an unused core
+- [ ] Implement full LiDAR detection scope for rotations
+- [x] Implement `stop()` and `fullstop()` functions (Movement and Strategy)
 - [ ] Define a default speed and acceleration
-- [ ] Update `currentPos` and `liveCurrentPos` with `maxSteps`
-- [x] Functions `rotateTo()` and `rotateBy()`
+- [x] Update `currentPos` and `liveCurrentPos` with `maxSteps`
+- [x] Implement `rotateTo()` and `rotateBy()` functions
+- [x] Bind board connectors to real connectors
+- [ ] Define global enum types
 - [ ] Update the [strategy generator](https://robin864.github.io/StrategyToolbox/pages/strategy-2024/generateur-2024.html) to make it compatible with the robot's program

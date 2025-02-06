@@ -18,18 +18,21 @@ namespace PIN
 
     namespace Steppers
     {
-        constexpr int
-            STEP1 = 10,
-            STEP2 = 46,
-            STEP3 = 13,
-            STEP4 = 21,
+        constexpr int STEP[4] = {
+            10, // STEP1
+            46, // STEP2
+            13, // STEP3
+            21, // STEP4
+        };
 
-            EN = 11,
+        constexpr int DIR[4] = {
+            9, // DIR1
+            3, // DIR2
+            12, // DIR3
+            14, // DIR4
+        };
 
-            DIR1 = 9,
-            DIR2 = 3,
-            DIR3 = 12,
-            DIR4 = 14;  
+        constexpr int EN = 11;
     } // namespace Steppers
     
     namespace Lidar
