@@ -2,8 +2,6 @@
 
 #include "strat-0.h"
 
-void fullstop();
-
 Strategy::Strategy() {}
 
 String Strategy::teamCoord(int _x, int _y)
@@ -17,7 +15,6 @@ String Strategy::teamCoord(int _x, int _y)
 void Strategy::setup()
 {
     movement.setup();
-    timer = Timer(DEFAULT_GAME_DURATION, &fullstop, false);
 }
 
 void Strategy::selectTeam()
@@ -49,7 +46,7 @@ void Strategy::execAction(Action action)
         case rotateLeft:
             movement.rotateLeftBy(action.param1);
         case rotateRight:
-            movement.rotateRightTo(action.param1);
+            movement.rotateRightBy(action.param1);
             break;
         case grabPlank:
             Serial.println("Grabing plank...");
@@ -71,13 +68,15 @@ void Strategy::execAction(Action action)
 
 void Strategy::game()
 {
-    timer.start();
-    
     for (const auto& action : actions)
     {
         execAction(action);
     }
+
+    fullstop();
 }
 
-void fullstop()
-{}
+void Strategy::fullstop()
+{
+    movement.fullstop();
+}

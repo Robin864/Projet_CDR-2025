@@ -23,7 +23,7 @@ void Movement::moveTo(Point2D targetAbsolute)
 void Movement::moveBy(Point2D targetRelative)
 {
     targetPosRelative = targetRelative;
-    targetPosAbsolute = currentPos = targetPosRelative;
+    targetPosAbsolute = currentPos - targetPosRelative;
     Steps base = targetRelative.toSteps(currentRotation);
     
     float detectionDirection = targetRelative.toPolar().angle;
@@ -122,8 +122,7 @@ void Movement::run()
         }
         else
         {
-            for (int i = 0; i < stepperNb; i++)
-                stepper[i].stop();
+            stop();
         }
     } while (!isArrived());
     
@@ -139,8 +138,7 @@ void Movement::stop()
 
     delay(1000);
 
-    for (int i = 0; i < stepperNb; i++)
-        stepper[i].move(last[steps][i]);
+    moveTo(targetPosAbsolute);
 }
 
 void Movement::fullstop()
@@ -154,12 +152,9 @@ void Movement::updateProgress()
     progress = stepper[maxStepsIndex].currentPosition() / maxSteps; // Percentage
     
     liveCurrentPos = {
-        targetPosRelative.x * progress,
-        targetPosRelative.y * progress
+        currentPos.x + targetPosRelative.x * progress,
+        currentPos.y + targetPosRelative.y * progress
     };
-
-    for (int i = 0; i < stepperNb; i++)
-        last[steps][i] -= stepper[i].currentPosition();
 }
 
 bool Movement::isArrived()

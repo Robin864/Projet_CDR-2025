@@ -49,6 +49,9 @@ The robot is equipped with actuators to interact with objects on the field.
 - [x] Implement the game timer
 - [x] Simplify DoubleMap using enum type
 - [x] Implement LiDAR in the Movement class
+- [ ] Implement robot startup using the pull-cord
+- [ ] Implement robot initialization
+- [ ] Adding an OLED screen with timer, team and current action (optional) 
 - [ ] Run LiDAR on an unused core
 - [ ] Implement full LiDAR detection scope for rotations
 - [x] Implement `stop()` and `fullstop()` functions (Movement and Strategy)

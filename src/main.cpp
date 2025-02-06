@@ -4,6 +4,7 @@
 
 #include "Strategy.h"
 
+Timer timer = Timer(DEFAULT_GAME_DURATION, &fullstop, false);
 Strategy strategy;
 
 void setPinsStates()
@@ -27,5 +28,11 @@ void setup()
 
 void loop()
 {
+    timer.start();
+    strategy.game();
+}
 
+void fullstop()
+{
+    strategy.fullstop();
 }

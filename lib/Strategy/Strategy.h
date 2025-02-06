@@ -17,7 +17,6 @@ class Strategy
 private:
     char team;
     Movement movement;
-    Timer timer;
     // Pot pot1
     // Pot pot2
     // Plank plank1
@@ -31,4 +30,5 @@ public:
     void setup();
     void init();
     void game();
+    void fullstop();
 };
