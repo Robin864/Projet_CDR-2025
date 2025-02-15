@@ -4,6 +4,8 @@
 
 #include "Strategy.h"
 
+void fullstop();
+
 Timer timer = Timer(DEFAULT_GAME_DURATION, &fullstop, false);
 Strategy strategy;
 
@@ -17,6 +19,15 @@ void setPinsStates()
     digitalWrite(PIN::Steppers::EN, LOW);
 }
 
+void waitStart()
+{
+    while(digitalRead(TIR_PIN))
+        delay(1);
+
+    while(!digitalRead(TIR_PIN))
+        delay(1);
+}
+
 void setup()
 {
     Serial.begin(115200);
@@ -28,6 +39,8 @@ void setup()
 
 void loop()
 {
+    // strategy.init();
+    waitStart();
     timer.start();
     strategy.game();
 }

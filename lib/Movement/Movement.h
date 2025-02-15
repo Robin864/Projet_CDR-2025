@@ -14,35 +14,36 @@
 const double ACCEL = 500;
 const double SPEED = 1000;
 
-enum stepperKey
-{
-    FrontRight,
-    RearRight,
-    FrontLeft,
-    RearLeft,
-};
-
-enum params
-{
-    speed,
-    accel,
-    steps,
-};
-
-enum rotation
-{
-    quarter = 90,
-    half = 180,
-};
-
 class Movement
 {
 private:
+    bool isRotation;
     const int uStep = 8;
     int maxStepsIndex;
 
     double maxSteps, currentRotation, progress;
     double last[3][stepperNb];
+
+    enum stepperKey
+    {
+        FrontRight,
+        RearRight,
+        FrontLeft,
+        RearLeft,
+    };
+
+    enum params
+    {
+        speed,
+        accel,
+        steps,
+    };
+
+    enum rotation
+    {
+        quarter = 90,
+        half = 180,
+    };
 
     Lidar& lidar = Lidar::getInstance();
     AccelStepper stepper[stepperNb];
@@ -54,6 +55,7 @@ private:
 public:
     Movement();
     void setup();
+    void init();
 
     void moveTo(Point2D target);
     void moveBy(Point2D target);
@@ -63,6 +65,7 @@ public:
     void rotateRightBy(float angle);
 
     void run();
+    void dryRun(); // ILLEGAL during game
     void stop();
     void fullstop();
     

@@ -25,13 +25,18 @@ void Lidar::setDistanceRange(int min, int max)
 
 void Lidar::setDetectionDirection(float angle)
 {
-    float minAngle = angle - (detectionScope/2);
+    float minAngle = angle - (detectionScope/2); // TODO: use mod 360
     float maxAngle = angle + (detectionScope/2);
 
     if (abs(minAngle) > 360 || abs(maxAngle) > 360)
         ERROR("wrong angle value");
 
     LD06Lidar.setAngleRange(minAngle, maxAngle);
+}
+
+void Lidar::setDetectionRotation()
+{
+    LD06Lidar.setAngleRange(0, 360);
 }
 
 bool Lidar::isDetected()

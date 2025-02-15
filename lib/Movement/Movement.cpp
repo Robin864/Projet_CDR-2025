@@ -15,6 +15,23 @@ void Movement::setup()
     }
 }
 
+void Movement::init()
+{
+    for (int i = 0; i < stepperNb; i++)
+    {
+        stepper[i].setCurrentPosition(0);
+        stepper[i].setMaxSpeed(SPEED);
+        stepper[i].setAcceleration(ACCEL);
+    }
+
+    stepper[FrontLeft].move(2200);
+    stepper[RearRight].move(2200);
+    dryRun();
+    
+    currentPos = {0, 0}; // TODO: set robot's offset
+    moveTo(Point2D(150));
+}
+
 void Movement::moveTo(Point2D targetAbsolute)
 {
     moveBy(targetAbsolute - currentPos);
@@ -22,28 +39,28 @@ void Movement::moveTo(Point2D targetAbsolute)
 
 void Movement::moveBy(Point2D targetRelative)
 {
+    isRotation = false;
     targetPosRelative = targetRelative;
     targetPosAbsolute = currentPos - targetPosRelative;
     Steps base = targetRelative.toSteps(currentRotation);
     
     float detectionDirection = targetRelative.toPolar().angle;
-    lidar.setDetectionDirection(detectionDirection);
-
+    
     float absSteps[stepperNb];
-
+    
     for (int i = 0; i < stepperNb; i++)
-        absSteps[i] = abs(base.steps[i]);
-
+    absSteps[i] = abs(base.steps[i]);
+    
     maxSteps = absSteps[0];
     for (int i = 0; i < stepperNb; i++)
-        if (absSteps[i] > maxSteps)
-        {
-            maxSteps = absSteps[i];
-            maxStepsIndex = i;
-        }
-
+    if (absSteps[i] > maxSteps)
+    {
+        maxSteps = absSteps[i];
+        maxStepsIndex = i;
+    }
+    
     float scalers[stepperNb];
-
+    
     for (int i = 0; i < stepperNb; i++)
     {
         scalers[i] = absSteps[i] / maxSteps;
@@ -51,13 +68,14 @@ void Movement::moveBy(Point2D targetRelative)
         last[speed][i] = SPEED * scalers[i];
         last[accel][i] = ACCEL * scalers[i];
         last[steps][i] = base.steps[i];
-    
+        
         stepper[i].setMaxSpeed(last[speed][i]);
         stepper[i].setAcceleration(last[accel][i]);
         stepper[i].setCurrentPosition(0);
         stepper[i].move(base.steps[i]);
     }
-
+    
+    lidar.setDetectionDirection(detectionDirection);
     run();
 }
 
@@ -74,6 +92,7 @@ void Movement::rotateTo(float angle)
 
 void Movement::rotateBy(float angle)
 {
+    isRotation = true;
     if (angle > 360)
         angle = fmod(angle, 360);
         
@@ -90,11 +109,8 @@ void Movement::rotateBy(float angle)
     stepper[FrontLeft].move(angle * uStep);
     stepper[RearLeft].move(angle * uStep);
 
-    do
-    {
-        for (int i = 0; i < stepperNb; i++)
-            stepper[i].run(); // When rotate, position must not be updated
-    } while (!isArrived());
+    lidar.setDetectionRotation();
+    run();
 
     currentRotation += angle;
 }
@@ -118,7 +134,8 @@ void Movement::run()
             for (int i = 0; i < stepperNb; i++)
                 stepper[i].run();
 
-            updateProgress();
+            if (!isRotation)
+                updateProgress();
         }
         else
         {
@@ -128,7 +145,18 @@ void Movement::run()
     
     // TODO : Estimate drifting using liveCurrentPos and currentPos
     // Correct it if possible
-    liveCurrentPos = currentPos;
+    if (!isRotation)
+        liveCurrentPos = currentPos;
+}
+
+void Movement::dryRun()
+{
+    do
+    {
+        for (int i = 0; i < stepperNb; i++)
+            stepper[i].run();
+    } while (!isArrived());
+    
 }
 
 void Movement::stop()

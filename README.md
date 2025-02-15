@@ -46,18 +46,22 @@ The robot is equipped with actuators to interact with objects on the field.
 
 - [x] Fix `UniBoardV4Def.h: No such file or directory`
 - [x] Fix `undefined reference to 'DoubleMap<AccelStepper>::operator[](int)'`
+- [ ] Fix `Movement::updateProgress() narrowing conversion from 'double' to 'int'` which could bring approximations
 - [x] Implement the game timer
 - [x] Simplify DoubleMap using enum type
 - [x] Implement LiDAR in the Movement class
-- [ ] Implement robot startup using the pull-cord
-- [ ] Implement robot initialization
+- [ ] Implement onboard position referential for the robot (e.i. corner selection)
+- [x] Implement robot startup using the pull-cord
+- [x] Implement robot initialization
+- [ ] Implement pull-cord and initialization different priorities
+- [ ] Actuators class
 - [ ] Adding an OLED screen with timer, team and current action (optional) 
-- [ ] Run LiDAR on an unused core
-- [ ] Implement full LiDAR detection scope for rotations
+- [ ] Run LiDAR on an unused core (optional)
+- [x] Implement full LiDAR detection scope for rotations
 - [x] Implement `stop()` and `fullstop()` functions (Movement and Strategy)
 - [ ] Define a default speed and acceleration
 - [x] Update `currentPos` and `liveCurrentPos` with `maxSteps`
 - [x] Implement `rotateTo()` and `rotateBy()` functions
 - [x] Bind board connectors to real connectors
-- [ ] Define global enum types
+- [x] Redefine access of enum types
 - [ ] Update the [strategy generator](https://robin864.github.io/StrategyToolbox/pages/strategy-2024/generateur-2024.html) to make it compatible with the robot's program

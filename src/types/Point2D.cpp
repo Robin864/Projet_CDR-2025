@@ -6,6 +6,11 @@ Point2D::Point2D()
     y = 0;
 }
 
+Point2D::Point2D(int _x)
+{
+    x = y = _x;
+}
+
 Point2D::Point2D(int _x, int _y)
 {
     x = _x;

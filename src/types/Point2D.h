@@ -15,6 +15,7 @@ private:
 public:
     int x, y;
     Point2D();
+    Point2D(int _x);
     Point2D(int _x, int _y);
     Point2D operator-(const Point2D& other);
     Point2D operator+(const Point2D& other);

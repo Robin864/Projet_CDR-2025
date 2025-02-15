@@ -28,7 +28,9 @@ void Strategy::selectTeam()
 }
 
 void Strategy::init()
-{}
+{
+    movement.init();
+}
 
 void Strategy::execAction(Action action)
 {

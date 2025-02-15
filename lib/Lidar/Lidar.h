@@ -24,5 +24,6 @@ public:
     void setup();
     void setDistanceRange(int minimum = 0, int maximum = 12000);
     void setDetectionDirection(float angle);
+    void setDetectionRotation();
     bool isDetected();
 };
