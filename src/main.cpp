@@ -6,7 +6,7 @@
 
 void fullstop();
 
-Timer timer = Timer(DEFAULT_GAME_DURATION, &fullstop, false);
+Timer timer(&fullstop, DEFAULT_GAME_DURATION, seconds, false);
 Strategy strategy;
 
 void setPinsStates()
