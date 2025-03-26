@@ -17,10 +17,6 @@ class Strategy
 private:
     char team;
     Movement movement;
-    // Pot pot1
-    // Pot pot2
-    // Plank plank1
-    // Plank plank2
     String teamCoord(int _x, int _y);
     void execAction(Action action);
 

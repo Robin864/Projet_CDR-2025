@@ -65,7 +65,7 @@ public:
     void rotateRightBy(float angle);
 
     void run();
-    void dryRun(); // ILLEGAL during game
+    void dryRun();
     void stop();
     void fullstop();
     

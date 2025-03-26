@@ -27,8 +27,7 @@ private:
 
 public:
     Timer();
-    Timer(void (*fn)(void), int callbackAt, TimeUnit unit = seconds, bool loopCallback = true, uint16_t clockDivider = DEFAULT_CLK); // Call function after given time unit
-    // TODO: destroyer
+    Timer(void (*fn)(void), int callbackAt, TimeUnit unit = seconds, bool loopCallback = true, uint16_t clockDivider = DEFAULT_CLK);
     void start();
     void stop();
     void restart();
