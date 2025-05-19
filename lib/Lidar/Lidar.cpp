@@ -65,27 +65,6 @@ void Lidar::setDetectionDirection(float angle)
 }
 
 /**
- * @brief Sets the detection direction of the Lidar sensor.
- * 
- * This method defines the angular range in which the Lidar detects objects,
- * based on a central angle and a predefined detection scope.
- * 
- * @param angle Central detection angle in degrees.
- * 
- * @todo Improve error handling for out-of-range angles.
- */
-void Lidar::setDetectionDirection(float angle)
-{
-    float minAngle = angle - (detectionScope/2); // TODO: use mod 360
-    float maxAngle = angle + (detectionScope/2);
-
-    if (abs(minAngle) > 360 || abs(maxAngle) > 360)
-        ERROR("wrong angle value");
-
-    LD06Lidar.setAngleRange(minAngle, maxAngle);
-}
-
-/**
  * @brief Enables full 360-degree detection for the Lidar sensor.
  * 
  * This method sets the Lidar's detection range to cover all directions.

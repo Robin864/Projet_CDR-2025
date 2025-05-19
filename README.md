@@ -53,6 +53,7 @@ The robot is equipped with actuators to interact with objects on the field.
 - [ ] Implement onboard position referential for the robot (e.i. corner selection)
 - [x] Implement robot startup using the pull-cord
 - [x] Implement robot initialization
+- [x] Implement ESP-NOW startup
 - [ ] Implement pull-cord and initialization different priorities
 - [ ] Actuators class
 - [ ] Adding an OLED screen with timer, team and current action (optional) 
