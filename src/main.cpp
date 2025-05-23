@@ -6,6 +6,8 @@
 
 #include "Strategy.h"
 
+#include "utils.h"
+
 struct {
     bool tir = false;
     char team = 'b';
@@ -45,11 +47,17 @@ void setupESPNow()
 
 void waitStart()
 {
-    while(message.tir)
-        delay(1);
-
     while(!message.tir)
+    {
         delay(1);
+        DEBUG("Waiting no tirette");
+    }
+
+    while(message.tir)
+    {
+        delay(1);
+        DEBUG("Waiting tirette");
+    }
 }
 
 void setup()
@@ -66,6 +74,7 @@ void loop()
 {
     // strategy.init();
     waitStart();
+
     timer.start();
     strategy.game();
 }

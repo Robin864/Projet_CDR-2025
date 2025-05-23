@@ -11,39 +11,17 @@
 #include "Point2D.h"
 #include "PolarVect.h"
 
-const double ACCEL = 500;
-const double SPEED = 1000;
+#include "config.h"
+using namespace config::Movement;
 
 class Movement
 {
 private:
     bool isRotation;
-    const int uStep = 8;
     int maxStepsIndex;
 
     double maxSteps, currentRotation, progress;
     double last[3][stepperNb];
-
-    enum stepperKey
-    {
-        FrontRight,
-        RearRight,
-        FrontLeft,
-        RearLeft,
-    };
-
-    enum params
-    {
-        speed,
-        accel,
-        steps,
-    };
-
-    enum rotation
-    {
-        quarter = 90,
-        half = 180,
-    };
 
     Lidar& lidar = Lidar::getInstance();
     AccelStepper stepper[stepperNb];

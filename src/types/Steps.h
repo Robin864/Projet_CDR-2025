@@ -5,7 +5,8 @@
 #include "Point2D.h"
 #include "PolarVect.h"
 
-const byte stepperNb = 4;
+#include "config.h"
+using namespace config::Movement;
 
 class Point2D;
 class PolarVect;

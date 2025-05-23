@@ -6,13 +6,14 @@
 using namespace std;
 
 vector<Action> actions = {
-    Action(gotoAbsolute, 400, 500),
-    Action(gotoRelative, 150, 200),
-    Action(rotateAbsolute, 150),
-    Action(rotateLeft, 150),
-    Action(rotateRight, 12),
-    Action(grabPlank),
-    Action(ungrabPlank),
-    Action(grabPot),
-    Action(ungrabPot)
+    Action(gotoRelative, 500, 0), // Forward
+    Action(gotoRelative, -500, 0), // Backward
+    Action(gotoRelative, 0, 500), // Left
+    Action(gotoRelative, 0, -500), // Right
+    Action(gotoRelative, 500, 500), // Diag 1
+    Action(gotoRelative, 500, -500), // Diag 2
+    Action(gotoRelative, -500, 500), // Diag 3
+    Action(gotoRelative, -500, -500), // Diag 4
+    Action(rotateLeft, 90),
+    Action(rotateRight, 90),
 };
